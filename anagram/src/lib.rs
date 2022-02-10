@@ -2,10 +2,12 @@ use std::collections::{HashSet, HashMap};
 
 pub fn anagrams_for<'a>(word: &str, possible_anagrams: &'a [&str]) -> HashSet<&'a str> {
     let word_lower = word.to_lowercase();
+
     let mut char_map = HashMap::new();
     word_lower
         .chars()
         .for_each(|c| *char_map.entry(c).or_insert(0) += 1);
+
     let check_char = |s: &str| -> bool {
         let mut char_map = char_map.clone();
         s.chars().any(|c| {
@@ -14,6 +16,7 @@ pub fn anagrams_for<'a>(word: &str, possible_anagrams: &'a [&str]) -> HashSet<&'
             *v < 0
         })
     };
+
     possible_anagrams
         .iter()
         .filter(|x| {
